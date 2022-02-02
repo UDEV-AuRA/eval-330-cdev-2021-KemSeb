@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Gestion de librairie Audio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://bootswatch.com/3/journal/bootstrap.min.css">
+</head>
+<body>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+  <div><nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Librairie Audio</a>
+      </div>
+
+      <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#" class="nav-link ember-view">Liste des artistes</a></li>
+        </ul>
+
+        <form role="search" class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" placeholder="Rechercher par nom" class="ember-text-field form-control ember-view">
+          </div>
+          <button type="submit" class="btn btn-default">Rechercher</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Bienvenue dans votre librairie audio !</h1>
+      <p>Cette application vous permettra de consulter et modifier votre librairie audio. Vous trouverez
+        <a href="https://raw.githubusercontent.com/pjvilloud/ipi-mdd-050-eval-web/master/public/database.sql">ici</a> le fichier <code>database.sql</code> qu'il est nécessaire d'exécuter sur votre serveur MySQL.</p>
+        <p>Il est nécessaire de développer les services webs nécessaires pour que cette application fonctionne. Voici l'ensemble des fonctionnalités :</p>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">1 - Afficher un artiste</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a>, on peut afficher les informations basiques de l'artiste d'identifiant 1 (AC/DC). L'appel qui est effectué est <code>GET /artists/1</code>. En cliquant <a href="#">ici</a>, on essaye d'afficher l'artiste d'identifiant 0 mais on doit obtenir une erreur 404 car il n'existe pas.</p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">2 - Recherche par nom</h4>
+            <p class="list-group-item-text">Lorsqu'on recherche le nom <em>aerosmith</em> dans la barre de recherche, on tombe bien sur <em>Aerosmith</em> ainsi que sur <em>Aerosmith &amp; Sierra Leone's Refugee Allstars</em>. L'appel qui est effectué est <code>GET /artists?name=aerosmith</code>. Lorsqu'on recherche un artiste inexistant commme <em>ABCDEF</em>, on obtient une liste vide.</p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">3 - Liste des artistes</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a>, tous les artistes sont affichés, de manière paginée. Il est possible de changer de page en utilisant les boutons. L'appel effectué est <code>GET /artists?page=0&amp;size=10&amp;sortProperty=name&amp;sortDirection=ASC</code></p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">4 - Création d'un artiste</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a> ou via le bouton <em>Nouvel artiste</em>, présent dans la liste des artistes, on accède au formulaire de création d'un artiste. Créer un artiste qui existe déjà (même nom) lance une erreur 409.</p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">5 - Modification d'un artiste</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a> ou en consultant les détails de l'artiste <em>Alanis Morissette</em> (id 4), il est possible de modifier les informations de l'artiste d'identifiant 4 qui sont persistées en base de donnée lorsqu'on clique sur le bouton <em>Enregistrer</em>. </p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">6 - Suppression d'un artiste</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a> ou en consultant les détails de l'artiste <em>Alice In Chains</em> (id 5), il est possible de supprimer ce dernier lorsqu'on clique sur le bouton <em>Supprimer</em>. </p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">7 - Ajout d'un album</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a> ou en consultant les détails de l'artiste <em>Alice In Chains</em> (id 5), il est possible d'ajouter un album en renseignant le champ et en cliquant sur le <span class="glyphicon glyphicon-plus"></span>. </p>
+          </li>
+          <li class="list-group-item">
+            <h4 class="list-group-item-heading">8 - Suppression d'un album</h4>
+            <p class="list-group-item-text">En cliquant <a href="#">ici</a> ou en consultant les détails de l'artiste <em>Alice In Chains</em> (id 5), il est possible de supprimer un album en cliquant sur le <span class="glyphicon glyphicon-minus"></span>.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div></body></html>
