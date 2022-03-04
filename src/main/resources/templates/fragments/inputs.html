@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="textInput(label, name, value)">
+    <label th:for="${name}" class="form-control-label"  th:text="${label}"></label>
+    <input type="text" th:id="${name}" th:name="${name}" class="form-control" th:value="${value}">
+</div>
+
+</html>

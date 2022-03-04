@@ -64,4 +64,14 @@ public class Album {
     public int hashCode() {
         return Objects.hash(id, title, artist);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Album{");
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", artist=").append(artist);
+        sb.append('}');
+        return sb.toString();
+    }
 }

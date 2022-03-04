@@ -5,6 +5,8 @@ import com.ipiecoles.java.eval.th330.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AlbumService {
 
@@ -12,11 +14,14 @@ public class AlbumService {
     private AlbumRepository albumRepository;
 
 
-    public Album creerAlbum(Album album) {
+    public Album createAlbum(Album album) {
         return albumRepository.save(album);
     }
 
     public void deleteAlbum(Long id) {
         albumRepository.deleteById(id);
     }
+
+    public List<Album> getAllAlbumsByArtistId(Long id) {return albumRepository.findAllByArtist_Id(id);}
+
 }
