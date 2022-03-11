@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="fragments/headNav :: head('Gestion de librairie Audio | Liste des artistes')"></div>
+<body>
+<div>
+  <div th:replace="fragments/headNav :: navbar"></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Liste des artistes</h1>
+        <a href="/artists/create" class="btn btn-primary">Nouvel artiste</a>
+        <table class="table table-hover table-striped" th:if="${!artists.isEmpty()}">
+          <thead>
+          <tr>
+            <th scope="col" th:switch="${#strings.toString(param.sortDirection)}">
+              Nom
+              <a th:case="ASC" th:href="@{/artists(page=${artists.number},size=${param.size},sortProperty=${param.sortProperty},sortDirection='DESC')}"><span class="glyphicon glyphicon-chevron-up"></span></a>
+              <a th:case="DESC" th:href="@{/artists(page=${artists.number},size=${param.size},sortProperty=${param.sortProperty},sortDirection='ASC')}"><span class="glyphicon glyphicon-chevron-down"></span></a>
+            </th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="artist : ${artists}">
+            <th scope="row" th:text="${artist.name}"></th>
+            <td><a th:href="|/artists/${artist.id}|" class="btn btn-primary">Détail</a></td>
+          </tr>
+
+          </tbody>
+        </table>
+        <div class="col-lg-12" th:if="${artists.isEmpty()}">
+          <h2>Nous n'avons pas trouvé d'artiste ayant pour nom partiel<span th:text="${param.name}"></span> </h2>
+        </div>
+        <div class="row" >
+          <div class="col-lg-6">
+            <p>Affichage des artistes <span th:text="${param.page} ? ${artistsCount} : 1"></span> à <span th:text="${param.page} ? ${artistsCount + artists.numberOfElements} : ${artists.numberOfElements}"></span> sur un total de <span th:text="${artists.totalElements}"></span></p>
+          </div>
+          <div class="col-lg-6" th:if="${param.page}">
+            <ul class="pagination">
+              <li th:if="${artists.hasPrevious()}">
+                <a th:href="@{/artists(page=${artists.number - 1},size=${param.size},sortProperty=${param.sortProperty},sortDirection=${param.sortDirection})}">«</a>
+              </li>
+              <li><a href="#" th:text="|Page ${artists.number + 1}|"></a></li>
+              <li th:if="${artists.hasNext()}">
+                <a th:href="@{/artists(page=${artists.number + 1},size=${param.size},sortProperty=${param.sortProperty},sortDirection=${param.sortDirection})}">»</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/headNav:: head('Gestion de librairie Audio | Detail')"></div>
+<body>
+<div>
+	<div th:replace="fragments/headNav :: navbar"></div>
+	<div class="container">
+		<h2>Détail de l'artiste [[${artist.name}]]</h2>
+		<form id="saveForm" action="/artists" method="post">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-lg-12">
+						<input th:if="${artist.id}" type="hidden" name="id" th:value="${artist.id}" />
+						<div th:replace="fragments/inputs :: textInput('Nom', 'name', ${artist.name})"></div>
+					</div>
+				</div>
+				<label class="form-control-label mt-3" th:if="${!artist.albums.isEmpty()}">Albums</label>
+				<div class="row" th:if="${artist.id}" th:each="album : ${artist.albums}">
+					<div class="col-lg-10">
+						<div class="list-group" >
+							<li class="list-group-item" th:text="${album.title}"></li>
+						</div>
+					</div>
+					<div class="col-lg-2 text-center">
+						<div class="list-group text-center">
+							<a th:href="@{|/albums/delete/${album.id}/artist/${artist.id}|}" class="btn-danger list-group-item list-group-item-action" ><span class="glyphicon glyphicon-minus"></span></a>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<input type="submit" class="btn btn-primary" value="Enregistrer">
+					<a th:if="${artist.id}" class="btn btn-danger" th:href="@{|/artists/delete/${artist.id}|}">Supprimer l'artiste</a>
+				</div>
+			</div>
+		</form>
+		<div class="row" th:if="${artist.id}">
+			<form method="post" th:action="@{|/albums/create/artist/${artist.id}|}">
+				<div class="col-lg-10">
+					<input type="text" name="title" placeholder="Ajouter un nouvelle album pour cet artiste" class="form-control" />
+				</div>
+				<div class="col-lg-2 text-center">
+					<button class="btn-success list-group-item list-group-item-action" type="submit" ><span class="glyphicon glyphicon-plus"></span></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

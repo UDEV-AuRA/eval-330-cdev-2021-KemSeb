@@ -40,15 +40,13 @@ public class ArtistService {
         return artistRepository.count();
     }
 
-    public Artist creerArtiste(Artist artist) {
-        return artistRepository.save(artist);
-    }
+    public Artist createArtist(Artist artist) { return artistRepository.save(artist); }
 
     public void deleteArtist(Long id) {
         artistRepository.deleteById(id);
     }
 
-    public Artist updateArtiste(Long id, Artist artist) {
+    public Artist updateArtist(Long id, Artist artist) {
         return artistRepository.save(artist);
     }
 
@@ -56,5 +54,19 @@ public class ArtistService {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection),sortProperty);
         Pageable pageable = PageRequest.of(page,size,sort);
         return artistRepository.findByNameContainingIgnoreCase(name, pageable);
+    }
+
+
+
+    public Boolean existsByName(String name) {
+        return artistRepository.existsByNameIgnoreCase(name);
+    }
+
+    public Boolean existsById(Long id) {
+        try {
+            return artistRepository.existsById(id);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Impossible de trouver l'artiste d'identifiant " + id);
+        }
     }
 }

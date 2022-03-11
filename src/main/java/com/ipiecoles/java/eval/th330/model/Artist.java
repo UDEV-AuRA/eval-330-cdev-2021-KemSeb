@@ -50,10 +50,6 @@ public class Artist implements Serializable {
         return albums;
     }
 
-    public void setAlbums(Set<Album> albums) {
-        this.albums = albums;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,5 +62,16 @@ public class Artist implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Artist{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", albums=").append(albums);
+        sb.append('}');
+        return sb.toString();
     }
 }
